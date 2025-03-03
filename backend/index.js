@@ -3,7 +3,8 @@ import dotenv from "dotenv"
 import mongoose from "mongoose";
 import userRoute from "./routes/user.route.js";
 import messageRoute from "./routes/message.route.js";
-import cors from "cors"
+import cors from "cors";
+import path from "path";
 import cookieParser from "cookie-parser";
 import { app, server } from "./socketIO/server.js";
 app.use(express.json());
@@ -21,7 +22,14 @@ try {
 }
 app.use("/api/user", userRoute);
 app.use("/api/message", messageRoute )
-
+// code for deployement
+if(process.env.NODE_ENV === "production"){
+  const dirPath = path.resolve();
+  app.use(express.static("./Frontend/dist"));
+  app.get("*", (req,res)=>{
+    res.sendFile(path.resolve(dirPath,"./Frontend/dist","index.html"))
+  })
+}
 server.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`)
 })
