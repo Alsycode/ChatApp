@@ -4,7 +4,7 @@ import Messages from './Messages'
 import Typesend from './Typesend'
 import useConversation from '../../zustand/useConversation'
 import { useEffect } from 'react'
-import { useAuth } from '../../context/authProvider'
+import { useAuth } from '../../context/Authprovider'
 import { CiMenuFries } from "react-icons/ci";
 function Right() {
   const { selectedConversation, setSelectedConversation } = useConversation();
